@@ -4,6 +4,8 @@ import random
 from curses.ascii import isalpha
 from operator import contains
 
+import requests
+
 
 def multiplier_factor(number):
     def multiplier_n(base):
@@ -231,4 +233,64 @@ def copy_number_chosen_amount(number, amount_of_copy):
 assert copy_number_chosen_amount(42, 2) == 4422
 assert copy_number_chosen_amount(666, 4) == 666666666666
 
-# 20.
+
+# 20. dict of copies
+def dict_of_copies_creator(key, value, number_of_copies):
+    dict_of_pseudo_copies = {}
+    for i in range(1, number_of_copies + 1):
+        dict_of_pseudo_copies.update({f'{key}{i}': f"{value}{i}"})
+    return dict_of_pseudo_copies
+
+
+assert len(dict_of_copies_creator('key', 'value', 3)) == 3
+assert len(dict_of_copies_creator('key', 'value', 66)) == 66
+
+
+# 21. currency rate checker
+
+def currency_rate_in_pln(currency):
+    url = f'https://api.nbp.pl/api/exchangerates/rates/a/{currency}/'
+    try:
+        response = requests.get(url)
+        return response.json()
+    except ValueError:
+        return None
+
+
+assert isinstance(currency_rate_in_pln('USD'), dict)
+assert currency_rate_in_pln('blablabla') is None
+
+
+# 22. multiply string
+def multiply_string(text, number):
+    return text * number
+
+
+assert multiply_string('hello world', 2) == 'hello worldhello world'
+assert multiply_string('a', 666) == 'a' * 666  # lolz
+
+
+# 23. import shit
+def import_siht():
+    import contextlib
+    import io
+    import importlib
+    with contextlib.redirect_stdout(io.StringIO()):
+        this = importlib.import_module('this')
+    return this.s[::-1]
+
+assert isinstance(import_siht(), str)
+
+
+# 24. pressure conversion
+def pressure_conversion(*, bar=None, psi=None):
+    if bar is None:
+        return round(psi * 0.0689476, 2)
+    if psi is None:
+        return round(bar * 14.5038, 2)
+    else:
+        return 'dont play with me'
+
+assert pressure_conversion(bar=2.5) == 36.26
+assert pressure_conversion(psi=36) == 2.48
+assert pressure_conversion(psi=3.2, bar=34.2) == 'dont play with me'
