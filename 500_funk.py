@@ -367,7 +367,16 @@ assert median_from_list([1, 2, 3, 4, 5]) == 3
 assert median_from_list([657, 32, 49, 124, 99, 12]) == 74
 
 
-# 30. 1 quantile
+# 30 mean of list
+def mean_from_list(list_of_numbers):
+    return round(sum(list_of_numbers) / len(list_of_numbers), 2)
+
+
+assert mean_from_list([1, 2, 3, 4, 5]) == 3
+assert mean_from_list([657, 32, 49, 124, 99, 12]) == 162.17
+
+
+# 31. 1 quantile
 def first_quantile(list_of_numbers):
     sorted_numbers = sorted(list_of_numbers)
     position = (len(sorted_numbers) + 1) / 4
@@ -383,7 +392,7 @@ assert first_quantile([1, 3, 4, 6, 12]) == 2
 assert first_quantile([657, 32, 49, 124, 99]) == 40.5
 
 
-# 31 2nd quantile
+# 32 2nd quantile
 @median_from_list_deco
 def second_quantile(list_of_numbers):
     return list_of_numbers
@@ -392,4 +401,41 @@ def second_quantile(list_of_numbers):
 assert second_quantile([1, 2, 3, 4, 5]) == 3
 assert second_quantile([657, 32, 49, 124, 99, 12]) == 74
 
-# 31 std dev of list
+
+# 33 3rd quantile
+def third_quantile(list_of_numbers):
+    sorted_numbers = sorted(list_of_numbers)
+    position = ((3 * (len(sorted_numbers) + 1)) / 4)
+    lower_index = int(position) - 1
+    fraction = position % 1
+    if fraction > 0:
+        return sorted_numbers[lower_index] + fraction * (sorted_numbers[lower_index + 1] - sorted_numbers[lower_index])
+    else:
+        return sorted_numbers[lower_index]
+
+
+assert third_quantile([1, 2, 3, 4, 5]) == 4.5
+assert third_quantile([12, 32, 49, 99, 124, 657]) == 257.25
+
+
+# 34 4th quantile
+def fourth_quantile(list_of_numbers):
+    return sorted(list_of_numbers)[-1]
+
+
+assert fourth_quantile([1, 2, 3, 4, 5]) == 5
+assert fourth_quantile([12, 32, 49, 99, 124, 657]) == 657
+
+
+# 35 km to miles
+def km_to_miles(number):
+    return round(number * 0.621371, 2)
+assert km_to_miles(100) == 62.14
+assert km_to_miles(20) == 12.43
+
+# 36. miles to km
+def miles_to_km(number):
+    return round(number * 1.60934, 2)
+
+assert miles_to_km(10) == 16.09
+assert miles_to_km(50) == 80.47
