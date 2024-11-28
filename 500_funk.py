@@ -326,15 +326,70 @@ def random_name(sex='boy'):
 
 assert isinstance(random_name(), str)
 
+
 # 27. Calculate a percentage of a number
 def calculate_percentage_of_number(base, percentage):
     return round(base * percentage / 100, 2)
 
+
 assert calculate_percentage_of_number(200, 2) == 4
+
 
 # 28. Calculate what percentage a part is of the whole
 def calculate_percentage_part(part, whole):
     return round(part * 100 / whole, 2)
 
+
 assert calculate_percentage_part(50, 200) == 25
 assert calculate_percentage_part(75, 100) == 75
+
+
+# 29 mean of list
+def median_from_list_deco(func):
+    def wrapper(list_of_numbers):
+        list_of_numbers = sorted(list_of_numbers)
+        if len(list_of_numbers) % 2 != 0:
+            return list_of_numbers[len(list_of_numbers) // 2]
+        else:
+            center_1 = list_of_numbers[len(list_of_numbers) // 2 - 1]
+            center_2 = list_of_numbers[len(list_of_numbers) // 2]
+            return (center_1 + center_2) / 2
+
+    return wrapper
+
+
+@median_from_list_deco
+def median_from_list(list_of_numbers):
+    pass
+
+
+assert median_from_list([1, 2, 3, 4, 5]) == 3
+assert median_from_list([657, 32, 49, 124, 99, 12]) == 74
+
+
+# 30. 1 quantile
+def first_quantile(list_of_numbers):
+    sorted_numbers = sorted(list_of_numbers)
+    position = (len(sorted_numbers) + 1) / 4
+    lower_index = int(position) - 1
+    if position % 1 > 0:
+        return sorted_numbers[lower_index] + (position % 1) * (
+                sorted_numbers[lower_index + 1] - sorted_numbers[lower_index])
+    else:
+        return sorted_numbers[lower_index]
+
+
+assert first_quantile([1, 3, 4, 6, 12]) == 2
+assert first_quantile([657, 32, 49, 124, 99]) == 40.5
+
+
+# 31 2nd quantile
+@median_from_list_deco
+def second_quantile(list_of_numbers):
+    return list_of_numbers
+
+
+assert second_quantile([1, 2, 3, 4, 5]) == 3
+assert second_quantile([657, 32, 49, 124, 99, 12]) == 74
+
+# 31 std dev of list
