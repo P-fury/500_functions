@@ -439,3 +439,12 @@ def miles_to_km(number):
 
 assert miles_to_km(10) == 16.09
 assert miles_to_km(50) == 80.47
+
+
+#37. currency counter
+def currency_counter(amount,exchange_rate):
+    from decimal import Decimal
+    return round(float(Decimal(f'{amount}') * Decimal(f'{exchange_rate}')),2)
+
+assert currency_counter(254, 4.3319) == 1100.30
+assert currency_counter(65, 0.24223) == 15.74
