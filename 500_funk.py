@@ -430,21 +430,96 @@ assert fourth_quantile([12, 32, 49, 99, 124, 657]) == 657
 # 35 km to miles
 def km_to_miles(number):
     return round(number * 0.621371, 2)
+
+
 assert km_to_miles(100) == 62.14
 assert km_to_miles(20) == 12.43
+
 
 # 36. miles to km
 def miles_to_km(number):
     return round(number * 1.60934, 2)
 
+
 assert miles_to_km(10) == 16.09
 assert miles_to_km(50) == 80.47
 
 
-#37. currency counter
-def currency_counter(amount,exchange_rate):
+# 37. currency counter
+def currency_counter(amount, exchange_rate):
     from decimal import Decimal
-    return round(float(Decimal(f'{amount}') * Decimal(f'{exchange_rate}')),2)
+    return round(float(Decimal(f'{amount}') * Decimal(f'{exchange_rate}')), 2)
+
 
 assert currency_counter(254, 4.3319) == 1100.30
 assert currency_counter(65, 0.24223) == 15.74
+
+
+# 38. word counter
+def word_counter(text):
+    return len(text.split())
+
+
+assert word_counter('hello world') == 2
+assert word_counter('hello world hello worldhello world') == 5
+
+
+# 39. carbonation
+def fib(n):
+    a = 0
+    b = 1
+    if n == 0:
+        return 0
+    elif n == 1:
+        return b
+    else:
+        for i in range(1, n):
+            c = a + b
+            a = b
+            b = c
+        return b
+
+
+assert fib(121) == 8670007398507948658051921
+assert fib(21) == 10946
+
+
+# 40. power
+def power(n):
+    x = 1
+    for number in range(1, n + 1):
+        x = x * number
+    return x
+
+
+assert power(5) == 120
+assert power(12) == 479001600
+
+
+# 41. list division from left or right
+def left_or_right_list_division( list_of_numbers: list,*,side: str='left') -> float:
+    if side == 'left':
+        result = list_of_numbers[0]
+        for number in list_of_numbers[1:]:
+            result /= number
+        return round(result, 8)
+    if side == 'right':
+        result = list_of_numbers[-1]
+        for number in reversed(list_of_numbers[:-1]):
+            result /= number
+        return round(result, 8)
+    else:
+        raise ValueError("Invalid value for side. Use 'left' or 'right'.")
+
+assert left_or_right_list_division([23,24,27,28]) == 0.00126764
+assert left_or_right_list_division([33,35,37,31], side='right') == 0.0007254
+
+# 42. list step multiplicator
+def list_step_multiply(list_of_numbers: list,step: int = 2) -> int:
+    result = list_of_numbers[0]
+    for number in list_of_numbers[1::step]:
+        result *= number
+    return result
+
+assert list_step_multiply([2,2,2,2,2,2],2) == 16
+assert list_step_multiply([2,2,2,2,2,2],3) == 8
