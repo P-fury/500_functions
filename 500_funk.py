@@ -497,7 +497,7 @@ assert power(12) == 479001600
 
 
 # 41. list division from left or right
-def left_or_right_list_division( list_of_numbers: list,*,side: str='left') -> float:
+def left_or_right_list_division(list_of_numbers: list, *, side: str = 'left') -> float:
     if side == 'left':
         result = list_of_numbers[0]
         for number in list_of_numbers[1:]:
@@ -511,51 +511,57 @@ def left_or_right_list_division( list_of_numbers: list,*,side: str='left') -> fl
     else:
         raise ValueError("Invalid value for side. Use 'left' or 'right'.")
 
-assert left_or_right_list_division([23,24,27,28]) == 0.00126764
-assert left_or_right_list_division([33,35,37,31], side='right') == 0.0007254
+
+assert left_or_right_list_division([23, 24, 27, 28]) == 0.00126764
+assert left_or_right_list_division([33, 35, 37, 31], side='right') == 0.0007254
+
 
 # 42. list step multiplicator
-def list_step_multiply(list_of_numbers: list,step: int = 2) -> int:
+def list_step_multiply(list_of_numbers: list, step: int = 2) -> int:
     result = list_of_numbers[0]
     for number in list_of_numbers[1::step]:
         result *= number
     return result
 
-assert list_step_multiply([2,2,2,2,2,2],2) == 16
-assert list_step_multiply([2,2,2,2,2,2],3) == 8
+
+assert list_step_multiply([2, 2, 2, 2, 2, 2], 2) == 16
+assert list_step_multiply([2, 2, 2, 2, 2, 2], 3) == 8
+
 
 # 43. distance calc meters, feet
-def distance_calc(distance: float,base: str = 'm') -> float:
+def distance_calc(distance: float, base: str = 'm') -> float:
     if base == 'm':
         return round(distance * 3.2808, 2)
     else:
         return round(distance / 3.281, 2)
 
+
 assert distance_calc(2.5) == 8.20
 assert distance_calc(666, base='feet') == 202.99
 
+
 # 44. random string creator
-def random_string(length: int,number_of_words: int=1, separator: str ='') -> str:
+def random_string(length: int, number_of_words: int = 1, separator: str = '') -> str:
     letters = string.ascii_lowercase
     result = ''
     step = 0
     for _ in range(number_of_words):
-        result +=''.join(random.choice(letters) for i in range(length))
+        result += ''.join(random.choice(letters) for i in range(length))
         step += 1
         if step != length:
             result += separator
     return result
 
+
 assert len(random_string(2)) == 2
-assert len(random_string(3,3,'$')) == 11
+assert len(random_string(3, 3, '$')) == 11
+
 
 # 45. random string in range
-def random_str_in_range(length: int=1) -> str:
-    length = random.randint(1,length)
-    result = ''
-    for _ in range(length):
-        result += random.choice(string.ascii_lowercase)
-    return result
+def random_str_in_range(length: int = 1) -> str:
+    length = random.randint(1, length)
+    return ''.join(random.choice(string.ascii_lowercase) for _ in range(length))
+
 
 assert len(random_str_in_range(2)) <= 2
 assert len(random_str_in_range(666)) <= 666
@@ -563,19 +569,15 @@ assert isinstance(random_str_in_range(23), str)
 
 
 # 46. random string in range create from random word range
-def ultra_random_str(length: int=1, words: int=1, separator: str = ' ') -> str:
-    result = ''
+def ultra_random_str(length: int = 1, words: int = 1, separator: str = ' ') -> str:
+    result = []
     words_number = random.randint(1, words)
-    print(words_number)
     for _ in range(words_number):
-        print('ass')
         letters_length = random.randint(1, length)
-        step = 0
-        for _ in range(letters_length):
-            result += random.choice(string.ascii_lowercase)
-            if step != letters_length:
-                result += separator
-    return result
+        word = ''.join(random.choice(string.ascii_lowercase) for _ in range(letters_length))
+        result.append(word)
+    return separator.join(result)
 
 
-print(ultra_random_str(2,2))
+assert isinstance(ultra_random_str(), str)
+assert len(ultra_random_str(10, 2, '!')) <= 13
