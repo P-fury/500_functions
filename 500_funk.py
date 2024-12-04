@@ -240,18 +240,18 @@ assert len(dict_of_copies_creator('key', 'value', 3)) == 3
 assert len(dict_of_copies_creator('key', 'value', 66)) == 66
 
 
-# 21. Fetch currency rate in PLN
-def currency_rate_in_pln(currency):
-    url = f'https://api.nbp.pl/api/exchangerates/rates/a/{currency}/'
-    try:
-        response = requests.get(url)
-        return response.json()
-    except ValueError:
-        return None
-
-
-assert isinstance(currency_rate_in_pln('USD'), dict)
-assert currency_rate_in_pln('blablabla') is None
+# # 21. Fetch currency rate in PLN
+# def currency_rate_in_pln(currency):
+#     url = f'https://api.nbp.pl/api/exchangerates/rates/a/{currency}/'
+#     try:
+#         response = requests.get(url)
+#         return response.json()
+#     except ValueError:
+#         return None
+#
+#
+# assert isinstance(currency_rate_in_pln('USD'), dict)
+# assert currency_rate_in_pln('blablabla') is None
 
 
 # 22. Multiply a string by a given number
@@ -523,3 +523,59 @@ def list_step_multiply(list_of_numbers: list,step: int = 2) -> int:
 
 assert list_step_multiply([2,2,2,2,2,2],2) == 16
 assert list_step_multiply([2,2,2,2,2,2],3) == 8
+
+# 43. distance calc meters, feet
+def distance_calc(distance: float,base: str = 'm') -> float:
+    if base == 'm':
+        return round(distance * 3.2808, 2)
+    else:
+        return round(distance / 3.281, 2)
+
+assert distance_calc(2.5) == 8.20
+assert distance_calc(666, base='feet') == 202.99
+
+# 44. random string creator
+def random_string(length: int,number_of_words: int=1, separator: str ='') -> str:
+    letters = string.ascii_lowercase
+    result = ''
+    step = 0
+    for _ in range(number_of_words):
+        result +=''.join(random.choice(letters) for i in range(length))
+        step += 1
+        if step != length:
+            result += separator
+    return result
+
+assert len(random_string(2)) == 2
+assert len(random_string(3,3,'$')) == 11
+
+# 45. random string in range
+def random_str_in_range(length: int=1) -> str:
+    length = random.randint(1,length)
+    result = ''
+    for _ in range(length):
+        result += random.choice(string.ascii_lowercase)
+    return result
+
+assert len(random_str_in_range(2)) <= 2
+assert len(random_str_in_range(666)) <= 666
+assert isinstance(random_str_in_range(23), str)
+
+
+# 46. random string in range create from random word range
+def ultra_random_str(length: int=1, words: int=1, separator: str = ' ') -> str:
+    result = ''
+    words_number = random.randint(1, words)
+    print(words_number)
+    for _ in range(words_number):
+        print('ass')
+        letters_length = random.randint(1, length)
+        step = 0
+        for _ in range(letters_length):
+            result += random.choice(string.ascii_lowercase)
+            if step != letters_length:
+                result += separator
+    return result
+
+
+print(ultra_random_str(2,2))
