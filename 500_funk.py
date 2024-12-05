@@ -659,6 +659,7 @@ def prime_number_checker(number: int) -> bool:
 assert prime_number_checker(1000003) == True
 assert prime_number_checker(28) == False
 
+
 # 51. faster prime number
 def faster_prime_number_checker(number: int) -> bool:
     if number < 2:
@@ -668,11 +669,49 @@ def faster_prime_number_checker(number: int) -> bool:
     if number % 2 == 0:
         return False
 
-    for i in range(3, int(math.sqrt(number)) + 1, 2):
+    for i in range(3, int((number ** 0.5)) + 1, 2):
         if number % i == 0:
             return False
     return True
 
+
 assert faster_prime_number_checker(1000003) == True
 assert faster_prime_number_checker(2147483647) == True
 assert faster_prime_number_checker(28) == False
+
+
+# 52. punkty rozproszeone w danym przedziale
+def range_with_float_distance(start: float, end: float, distance: float) -> list:
+    result = []
+    memory = start
+    while memory <= end:
+        result.append(memory)
+        memory += distance
+    return result
+
+
+assert range_with_float_distance(1, 2, 1) == [1, 2]
+assert len(range_with_float_distance(1, 2, 0.25)) == 5
+
+# 53. armstrong number
+def armstrong(number: int) -> bool:
+    return number == sum(int(i) ** len(str(number)) for i in str(number))
+
+assert armstrong(1000003) == False
+assert armstrong(153) == True
+
+# 54. if armstrong in lst
+def armstrong_list():
+    def decorator(func):
+        def wrapper(numbers: list) -> list:
+            return [number for number in numbers if func(number)]
+        return wrapper
+    return decorator
+
+
+@armstrong_list()
+def armstrong(number):
+    return number == sum(int(i) ** len(str(number)) for i in str(number))
+
+assert armstrong([1,2,3,123,154,153,666,748]) == [1,2,3,153]
+assert armstrong([23,435,4356,3334,532]) == []
