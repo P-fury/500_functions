@@ -1,7 +1,8 @@
 # 1. Generator for exponentiation
 import string
 import random
-from curses.ascii import isalpha
+import io
+import sys
 from operator import contains
 
 import requests
@@ -367,7 +368,7 @@ assert median_from_list([1, 2, 3, 4, 5]) == 3
 assert median_from_list([657, 32, 49, 124, 99, 12]) == 74
 
 
-# 30 mean of list
+# 30 median of list
 def mean_from_list(list_of_numbers):
     return round(sum(list_of_numbers) / len(list_of_numbers), 2)
 
@@ -580,4 +581,35 @@ def ultra_random_str(length: int = 1, words: int = 1, separator: str = ' ') -> s
 
 
 assert isinstance(ultra_random_str(), str)
-assert len(ultra_random_str(10, 2, '!')) <= 13
+assert len(ultra_random_str(10, 2, '!')) <= 21
+
+
+# 47. simple decorator
+def before_and_after(funk):
+    def wrapper(text):
+        print('before funk')
+        result = funk(text)
+        print('after funk')
+        return result
+    return wrapper
+
+@before_and_after
+def say_text(text:str='hello world') -> str:
+    print(f'{text} from the heart')
+    return f'{text}'
+
+# tests:
+captured_output = io.StringIO()
+sys.stdout = captured_output
+
+say_text('hello world')
+
+sys.stdout = sys.__stdout__
+output = captured_output.getvalue()
+
+assert "hello world" in output
+assert 'before funk' in output
+assert 'after funk' in output
+assert 'heart' in output
+
+# 48.
