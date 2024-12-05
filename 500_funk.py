@@ -4,7 +4,7 @@ import random
 import io
 import sys
 from operator import contains
-
+import math
 import requests
 
 
@@ -591,12 +591,15 @@ def before_and_after(funk):
         result = funk(text)
         print('after funk')
         return result
+
     return wrapper
 
+
 @before_and_after
-def say_text(text:str='hello world') -> str:
+def say_text(text: str = 'hello world') -> str:
     print(f'{text} from the heart')
     return f'{text}'
+
 
 # tests:
 captured_output = io.StringIO()
@@ -612,4 +615,64 @@ assert 'before funk' in output
 assert 'after funk' in output
 assert 'heart' in output
 
-# 48.
+
+# 48. biggest number from list
+def biggest_from_lst(lst: list) -> int:
+    memory = lst[0]
+    for index in range(1, len(lst)):
+        if lst[index] > memory:
+            memory = lst[index]
+    return memory
+
+
+assert biggest_from_lst([55, 1, 2, 3, 4, 5]) == 55
+assert biggest_from_lst([34, 56, 873, 2, 34, 467 * 5, 1202]) == 467 * 5
+
+
+# 49. smallest from list
+def smallest_from_lst(lst: list) -> int:
+    memory = lst[0]
+    for index in range(1, len(lst)):
+        if lst[index] < memory:
+            memory = lst[index]
+    return memory
+
+
+assert smallest_from_lst([55, 1, 2, 3, 4, 5]) == 1
+assert smallest_from_lst([2342, 43324, 5554, 123, 4332, 45221, 432]) == 123
+
+
+# 50. prime number
+def prime_number_checker(number: int) -> bool:
+    division_lst = []
+    if number < 2:
+        return False
+    for i in range(2, number):
+        if number % i == 0:
+            division_lst.append(i)
+    if len(division_lst) > 1:
+        return False
+    else:
+        return True
+
+
+assert prime_number_checker(1000003) == True
+assert prime_number_checker(28) == False
+
+# 51. faster prime number
+def faster_prime_number_checker(number: int) -> bool:
+    if number < 2:
+        return False
+    if number == 2:
+        return True
+    if number % 2 == 0:
+        return False
+
+    for i in range(3, int(math.sqrt(number)) + 1, 2):
+        if number % i == 0:
+            return False
+    return True
+
+assert faster_prime_number_checker(1000003) == True
+assert faster_prime_number_checker(2147483647) == True
+assert faster_prime_number_checker(28) == False
