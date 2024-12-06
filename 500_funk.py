@@ -5,7 +5,7 @@ import io
 import sys
 from operator import contains
 import math
-from typing import Callable
+from typing import Callable, List, Any
 import requests
 
 
@@ -748,4 +748,47 @@ assert True in funk_on_list(is_perfect_number, [5, 6, 7, 8, 9])
 assert not True in funk_on_list(is_perfect_number, [14, 10, 23, 54])
 
 
-# 57.
+# 57. happy number
+def is_happy_number(number: int) -> bool:
+    def sum_of_squares(numb: int) -> int:
+        return sum(int(digit) ** 2 for digit in str(numb))
+
+    checked = set()
+    while number != 1 and number not in checked:
+        checked.add(number)
+        number = sum_of_squares(number)
+    return number == 1
+
+
+assert is_happy_number(2147483647) == False
+assert is_happy_number(19) == True
+
+# 58. happy number in list
+assert True in funk_on_list(is_happy_number, [5, 6, 7, 8, 9])
+assert False in funk_on_list(is_happy_number, [14, 10, 23, 54])
+
+
+# 59. is palindromic number
+def is_palindromic_number(number: int) -> bool:
+    return str(number) == str(number)[::-1]
+
+
+assert is_palindromic_number(2147483647) == False
+assert is_palindromic_number(6574756) == True
+
+
+# 60. is palindromic lst decorator
+
+
+def is_palindromic_for_list(funk: Callable[[int], bool]) -> Callable[[list], list[bool]]:
+    def wrapper(numbers: list) -> list[bool]:
+        return [funk(number) for number in numbers]
+    return wrapper
+
+@is_palindromic_for_list
+def is_palindromic_number(number: int) -> bool:
+    return str(number) == str(number)[::-1]
+
+
+assert False in (is_palindromic_number([12, 2, 3, 4, 5]))
+assert is_palindromic_number([123321,666,1233442]) == [True, True, False]
