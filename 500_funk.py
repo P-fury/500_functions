@@ -5,6 +5,7 @@ import io
 import sys
 from operator import contains
 import math
+from typing import Callable
 import requests
 
 
@@ -693,19 +694,24 @@ def range_with_float_distance(start: float, end: float, distance: float) -> list
 assert range_with_float_distance(1, 2, 1) == [1, 2]
 assert len(range_with_float_distance(1, 2, 0.25)) == 5
 
+
 # 53. armstrong number
 def armstrong(number: int) -> bool:
     return number == sum(int(i) ** len(str(number)) for i in str(number))
 
+
 assert armstrong(1000003) == False
 assert armstrong(153) == True
+
 
 # 54. if armstrong in lst
 def armstrong_list():
     def decorator(func):
         def wrapper(numbers: list) -> list:
             return [number for number in numbers if func(number)]
+
         return wrapper
+
     return decorator
 
 
@@ -713,5 +719,33 @@ def armstrong_list():
 def armstrong(number):
     return number == sum(int(i) ** len(str(number)) for i in str(number))
 
-assert armstrong([1,2,3,123,154,153,666,748]) == [1,2,3,153]
-assert armstrong([23,435,4356,3334,532]) == []
+
+assert armstrong([1, 2, 3, 123, 154, 153, 666, 748]) == [1, 2, 3, 153]
+assert armstrong([23, 435, 4356, 3334, 532]) == []
+
+
+# 55. perfect number
+def is_perfect_number(number: int) -> bool:
+    result = [i for i in range(1, number + 1) if number % i == 0][:-1]
+    return number == sum(result)
+
+
+assert is_perfect_number(28) == True
+assert is_perfect_number(1000003) == False
+assert is_perfect_number(8128) == True
+
+
+# 56. perfect number in list
+def funk_on_list(funk: Callable[[int], bool], list_of_numbers: list) -> list:
+    result = []
+    for number in list_of_numbers:
+        result.append(funk(number))
+
+    return result
+
+
+assert True in funk_on_list(is_perfect_number, [5, 6, 7, 8, 9])
+assert not True in funk_on_list(is_perfect_number, [14, 10, 23, 54])
+
+
+# 57.
