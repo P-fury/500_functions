@@ -783,7 +783,9 @@ assert is_palindromic_number(6574756) == True
 def is_palindromic_for_list(funk: Callable[[int], bool]) -> Callable[[list], list[bool]]:
     def wrapper(numbers: list) -> list[bool]:
         return [funk(number) for number in numbers]
+
     return wrapper
+
 
 @is_palindromic_for_list
 def is_palindromic_number(number: int) -> bool:
@@ -791,4 +793,32 @@ def is_palindromic_number(number: int) -> bool:
 
 
 assert False in (is_palindromic_number([12, 2, 3, 4, 5]))
-assert is_palindromic_number([123321,666,1233442]) == [True, True, False]
+assert is_palindromic_number([123321, 666, 1233442]) == [True, True, False]
+
+
+# 61. is Harshad number
+def is_harshad_number(number: int) -> bool:
+    return (number / (sum(int(digit) for digit in str(number)))) % 2 == 0
+
+
+assert is_harshad_number(3) == False
+assert is_harshad_number(18) == True
+
+
+# 62. is Harshad number in list
+
+def for_list(funk: Callable[[int], bool]) -> Callable[[list], list[bool]]:
+    def wrapper(numbers: list) -> list[bool]:
+        return [funk(number) for number in numbers]
+
+    return wrapper
+
+
+@for_list
+def is_harshad_number(number: int) -> bool:
+    return (number / (sum(int(digit) for digit in str(number)))) % 2 == 0
+
+
+assert is_harshad_number([3, 18, 21]) == [False, True, False]
+assert sum(is_harshad_number([123, 43, 52, 674])) == False
+
