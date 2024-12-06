@@ -822,3 +822,18 @@ def is_harshad_number(number: int) -> bool:
 assert is_harshad_number([3, 18, 21]) == [False, True, False]
 assert sum(is_harshad_number([123, 43, 52, 674])) == False
 
+
+
+# 63. Amicable Numbers
+def amicable_number(number1: int, number2: int) -> bool:
+    divisors_lst = []
+    for i in range(1, int(number1/ 2 +1)):
+        if number1 % i == 0:
+            divisors_lst.append(i)
+
+    return sum(divisors_lst) == number2
+
+
+assert amicable_number(1, 2) == False
+assert amicable_number(220, 284) == True
+
