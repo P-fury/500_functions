@@ -892,3 +892,27 @@ def is_deficient_number_from_list(lst: List[int]) -> Tuple[List[bool], List[int]
 
 assert is_deficient_number_from_list([1, 2]) == ([False, False], [1, 2])
 assert is_deficient_number_from_list([83676, 54, 102])[0] == [True, True, True]
+
+
+# 69. Kaprekar Numbers
+def is_kaprekar_number(number: int) -> bool:
+    squared = number ** 2
+    half_of_length = int(len(str(squared)) / 2)
+    return int(str(squared)[:half_of_length]) + int(str(squared)[half_of_length:]) == number
+
+
+assert is_kaprekar_number(461539) == True
+assert is_kaprekar_number(30884184) == True
+assert is_kaprekar_number(72) == False
+
+
+# 70. is Automorphic Numbers
+def is_automorphic_number(number: int) -> bool:
+    squared = number ** 2
+    length_of_number = len(str(number))
+    return int(str(squared)[-length_of_number:]) == number
+
+
+assert is_automorphic_number(2) == False
+assert is_automorphic_number(5) == True
+assert is_automorphic_number(76) == True
