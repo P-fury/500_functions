@@ -5,7 +5,7 @@ import io
 import sys
 from operator import contains
 import math
-from typing import Callable, List, Any
+from typing import Callable, List, Any, Tuple
 import requests
 
 
@@ -848,3 +848,47 @@ def is_twin_primes(number1: int, number2: int) -> str | bool:
 
 assert is_twin_primes(4, 2) == True
 assert is_twin_primes(12, 2) == 'first number is not prime'
+
+
+# 65. Deficient Number
+def is_deficient_number(number: int) -> bool:
+    return sum(i for i in range(1, int((number / 2) + 1)) if number % i == 0) < number
+
+
+assert is_deficient_number(12) == False
+assert is_deficient_number(10) == True
+
+
+# 66. Deficient Number for list
+def is_deficient_number_from_list(lst: List[int]) -> Tuple[List[bool], List[int]]:
+    result_lst = []
+    for number in lst:
+        divisors_sum = sum(i for i in range(1, int((number / 2) + 1)) if number % i == 0)
+        result_lst.append(divisors_sum < number)
+    return result_lst, lst
+
+
+assert is_deficient_number_from_list([1, 2]) == ([True, True], [1, 2])
+assert is_deficient_number_from_list([83676, 54, 6])[0] == [False, False, False]
+
+
+# 67.Abundant Numbers
+def is_abundant_number(number: int) -> bool:
+    return sum(i for i in range(1, int((number / 2) + 1)) if number % i == 0) > number
+
+
+assert is_abundant_number(24) == True
+assert is_abundant_number(9) == False
+
+
+# 68. Abundant Numbers on list
+def is_deficient_number_from_list(lst: List[int]) -> Tuple[List[bool], List[int]]:
+    result_lst = []
+    for number in lst:
+        divisors_sum = sum(i for i in range(1, int((number / 2) + 1)) if number % i == 0)
+        result_lst.append(divisors_sum > number)
+    return result_lst, lst
+
+
+assert is_deficient_number_from_list([1, 2]) == ([False, False], [1, 2])
+assert is_deficient_number_from_list([83676, 54, 102])[0] == [True, True, True]
