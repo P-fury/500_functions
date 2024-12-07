@@ -823,11 +823,10 @@ assert is_harshad_number([3, 18, 21]) == [False, True, False]
 assert sum(is_harshad_number([123, 43, 52, 674])) == False
 
 
-
 # 63. Amicable Numbers
 def amicable_number(number1: int, number2: int) -> bool:
     divisors_lst = []
-    for i in range(1, int(number1/ 2 +1)):
+    for i in range(1, int(number1 / 2 + 1)):
         if number1 % i == 0:
             divisors_lst.append(i)
 
@@ -837,3 +836,15 @@ def amicable_number(number1: int, number2: int) -> bool:
 assert amicable_number(1, 2) == False
 assert amicable_number(220, 284) == True
 
+
+# 64. Twin Primes (nie uzywac dwoch typow danych)
+def is_twin_primes(number1: int, number2: int) -> str | bool:
+    if not prime_number_checker(number1):
+        return 'first number is not prime'
+    if not prime_number_checker(number2):
+        return 'second number is not prime'
+    return abs(number1 - number2) == 2
+
+
+assert is_twin_primes(4, 2) == True
+assert is_twin_primes(12, 2) == 'first number is not prime'
