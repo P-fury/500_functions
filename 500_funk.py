@@ -3,6 +3,8 @@ import string
 import random
 import io
 import sys
+from enum import Enum
+from idlelib.colorizer import prog_group_name_to_tag
 from operator import contains
 import math
 from typing import Callable, List, Any, Tuple
@@ -916,3 +918,53 @@ def is_automorphic_number(number: int) -> bool:
 assert is_automorphic_number(2) == False
 assert is_automorphic_number(5) == True
 assert is_automorphic_number(76) == True
+
+# 71. how many sticks needed for a number
+def amount_of_sticks_for_number(number: int) -> int:
+    segments = {
+        0: 6,
+        1: 2,
+        2: 5,
+        3: 5,
+        4: 4,
+        5: 5,
+        6: 6,
+        7: 3,
+        8: 7,
+        9: 6
+    }
+    return sum(segments[int(i)] for i in str(number))
+
+assert amount_of_sticks_for_number(1111) == 8
+assert amount_of_sticks_for_number(999000111) == 42
+
+
+# 72. lambda add
+add = lambda x, y: x + y
+assert(add(1,2)) == 3
+assert(add(132,132)) == 264
+
+
+# 73. sum all args
+def sum_all(*args):
+    return sum(args)
+
+assert sum_all(1, 2, 3) == 6
+assert sum_all(2,2,2,2,2,2,2,2,2) == 18
+
+# 74.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
