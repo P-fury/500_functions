@@ -1,4 +1,5 @@
 # 1. Generator for exponentiation
+import re
 import string
 import random
 import io
@@ -952,11 +953,19 @@ def sum_all(*args):
 assert sum_all(1, 2, 3) == 6
 assert sum_all(2,2,2,2,2,2,2,2,2) == 18
 
-# 74.
+# 74. username from email
+def email_cutter(email: str) -> str | bool:
+    if '@' not in email:
+        return False
+    result = re.match(r'^[^@]*',email)
+    if result:
+        return result.group()
+    else:
+        return False
 
-
-
-
+assert email_cutter("") == False
+assert email_cutter("satan666@gmail.com") == 'satan666'
+assert email_cutter("3211dsa") == False
 
 
 
