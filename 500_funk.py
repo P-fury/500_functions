@@ -8,6 +8,7 @@ from enum import Enum
 from idlelib.colorizer import prog_group_name_to_tag
 from operator import contains
 import math
+from tempfile import tempdir
 from typing import Callable, List, Any, Tuple
 import requests
 
@@ -920,6 +921,7 @@ assert is_automorphic_number(2) == False
 assert is_automorphic_number(5) == True
 assert is_automorphic_number(76) == True
 
+
 # 71. how many sticks needed for a number
 def amount_of_sticks_for_number(number: int) -> int:
     segments = {
@@ -936,44 +938,118 @@ def amount_of_sticks_for_number(number: int) -> int:
     }
     return sum(segments[int(i)] for i in str(number))
 
+
 assert amount_of_sticks_for_number(1111) == 8
 assert amount_of_sticks_for_number(999000111) == 42
 
-
 # 72. lambda add
 add = lambda x, y: x + y
-assert(add(1,2)) == 3
-assert(add(132,132)) == 264
+assert (add(1, 2)) == 3
+assert (add(132, 132)) == 264
 
 
 # 73. sum all args
 def sum_all(*args):
     return sum(args)
 
+
 assert sum_all(1, 2, 3) == 6
-assert sum_all(2,2,2,2,2,2,2,2,2) == 18
-
-# 74. username from email
-def email_cutter(email: str) -> str | bool:
-    if '@' not in email:
-        return False
-    result = re.match(r'^[^@]*',email)
-    if result:
-        return result.group()
-    else:
-        return False
-
-assert email_cutter("") == False
-assert email_cutter("satan666@gmail.com") == 'satan666'
-assert email_cutter("3211dsa") == False
+assert sum_all(2, 2, 2, 2, 2, 2, 2, 2, 2) == 18
 
 
+# 75. Class for converting distances between various units
+class Distance:
+    # 76. Constructor to initialize distance in meters
+    def __init__(self, distance: float):
+        self.distance_m = distance
+
+    # 77. Property to get the distance in meters
+    @property
+    def distance_m(self):
+        return f'{self._distance_m:.2f} meters'
+
+    # 78. Setter to set the distance in meters
+    @distance_m.setter
+    def distance_m(self, value):
+        if value <= 0:
+            raise ValueError('Distance must be greater than 0')
+        self._distance_m = value
+
+    # 79. Property to get the distance in feet
+    @property
+    def distance_ft(self):
+        return f'{3.28084 * self._distance_m:.2f} feet'
+
+    # 80. Setter to set the distance in feet
+    @distance_ft.setter
+    def distance_ft(self, value):
+        self.distance_m = value / 3.28084
+
+    # 81. Property to get the distance in millimeters
+    @property
+    def distance_mm(self):
+        return f'{1000 * self._distance_m:.2f} millimeters'
+
+    # 82. Setter to set the distance in millimeters
+    @distance_mm.setter
+    def distance_mm(self, value):
+        self.distance_m = value / 1000
+
+    # 83. Property to get the distance in centimeters
+    @property
+    def distance_cm(self):
+        return f'{100 * self._distance_m:.2f} centimeters'
+
+    # 84. Setter to set the distance in centimeters
+    @distance_cm.setter
+    def distance_cm(self, value):
+        self.distance_m = value / 100
+
+    # 85. Property to get the distance in inches
+    @property
+    def distance_in(self):
+        return f'{39.3700787402 * self._distance_m:.2f} inches'
+
+    # 86. Setter to set the distance in inches
+    @distance_in.setter
+    def distance_in(self, value):
+        self.distance_m = value / 39.3700787402
+
+    # 87. Property to get the distance in yards
+    @property
+    def distance_yd(self):
+        return f'{1.093613298338 * self._distance_m:.2f} yards'
+
+    # 88. Setter to set the distance in yards
+    @distance_yd.setter
+    def distance_yd(self, value):
+        self.distance_m = value / 1.093613298338
+
+    # 89. String representation of the distance in meters
+    def __str__(self):
+        return str(self.distance_m)
 
 
+distance1 = Distance(12)
+assert distance1.distance_m == '12.00 meters'
+assert distance1.distance_ft == '39.37 feet'
+assert distance1.distance_mm == '12000.00 millimeters'
+assert distance1.distance_cm == '1200.00 centimeters'
+assert distance1.distance_in == '472.44 inches'
+assert distance1.distance_yd == '13.12 yards'
 
+distance1.distance_mm = 10
+assert distance1.distance_m == '0.01 meters'
+assert distance1.distance_mm == '10.00 millimeters'
 
+distance1.distance_cm = 100
+assert distance1.distance_m == '1.00 meters'
+assert distance1.distance_cm == '100.00 centimeters'
 
+distance1.distance_in = 12
+assert distance1.distance_m == '0.30 meters'
+assert distance1.distance_in == '12.00 inches'
 
-
-
-
+distance1.distance_yd = 1
+assert distance1.distance_m == '0.91 meters'
+assert distance1.distance_yd == '1.00 yards'
