@@ -1064,21 +1064,58 @@ def remove_smallest(numbers):
     numbers_copy.remove(min(numbers))
     return numbers_copy
 
+
 assert remove_smallest([1, 2, 3, 4, 5]) == [2, 3, 4, 5]
 assert remove_smallest([5, 3, 2, 1, 4]) == [5, 3, 2, 4]
 assert remove_smallest([1, 2, 3, 1, 1]) == [2, 3, 1, 1]
 assert remove_smallest([]) == []
 
+
 # 91. Removing Elements
 def remove_every_other(my_list):
     return [item for index, item in enumerate(my_list) if index % 2 == 0]
 
+
 assert remove_every_other([1, 2, 3, 4, 5]) == [1, 3, 5]
 assert remove_every_other([['Goodbye'], {'Great': 'Job'}]) == [['Goodbye']]
 
-# 92.Will you make it?
+
+# 92. Will you make it?
 def zero_fuel(distance_to_pump, mpg, fuel_left):
     return fuel_left * mpg >= distance_to_pump
 
+
 assert zero_fuel(50, 25, 2) == True
 assert zero_fuel(100, 50, 1) == False
+
+
+# 93. Vowel Count
+def get_count(sentence: str) -> int:
+    return sum(1 for char in sentence if char in 'aeiou')
+
+
+assert get_count("aeiou") == 5
+assert get_count("y") == 0
+
+
+# 94. Beginner Series #4 Cockroach
+def cockroach_speed(s: float) -> float:
+    import math
+    if s <= 0:
+        return 0
+    return math.floor(s * 27.7777778)
+
+
+assert cockroach_speed(1.08) == 30
+assert cockroach_speed(1.09) == 30
+assert cockroach_speed(0) == 0
+
+
+# 95. Sum of a Beach
+def sum_of_a_beach(beach: str) -> int:
+    return sum(beach.lower().count(item) for item in ['sun', 'water', 'fish', 'sand'])
+
+
+assert sum_of_a_beach("SanD") == 1
+assert sum_of_a_beach("sunsunsunsun") == 4
+assert sum_of_a_beach("fdskerjwednkwesw23423") == 0
