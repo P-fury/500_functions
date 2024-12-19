@@ -1053,3 +1053,32 @@ assert distance1.distance_in == '12.00 inches'
 distance1.distance_yd = 1
 assert distance1.distance_m == '0.91 meters'
 assert distance1.distance_yd == '1.00 yards'
+
+
+# 90. Remove the minimum
+
+def remove_smallest(numbers):
+    if len(numbers) == 0:
+        return []
+    numbers_copy = numbers.copy()
+    numbers_copy.remove(min(numbers))
+    return numbers_copy
+
+assert remove_smallest([1, 2, 3, 4, 5]) == [2, 3, 4, 5]
+assert remove_smallest([5, 3, 2, 1, 4]) == [5, 3, 2, 4]
+assert remove_smallest([1, 2, 3, 1, 1]) == [2, 3, 1, 1]
+assert remove_smallest([]) == []
+
+# 91. Removing Elements
+def remove_every_other(my_list):
+    return [item for index, item in enumerate(my_list) if index % 2 == 0]
+
+assert remove_every_other([1, 2, 3, 4, 5]) == [1, 3, 5]
+assert remove_every_other([['Goodbye'], {'Great': 'Job'}]) == [['Goodbye']]
+
+# 92.Will you make it?
+def zero_fuel(distance_to_pump, mpg, fuel_left):
+    return fuel_left * mpg >= distance_to_pump
+
+assert zero_fuel(50, 25, 2) == True
+assert zero_fuel(100, 50, 1) == False
